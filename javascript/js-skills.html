@@ -154,10 +154,12 @@
   "use strict";
   // code here for above problem
   var alertForm = document.getElementById('prevent-form-submission-form');
+  
   function alertFormHandler(evt) {
     alert('Just alerting, not submitting!');
     evt.preventDefault();
   }
+
   alertForm.addEventListener('submit', alertFormHandler);
 
 </script>
@@ -202,7 +204,7 @@
  //   alert(newMsg);
  // }
 
-  function reverseString() {
+  function reverseString(evt) {
    var msg = "Porcupines are cute";
    var newMsg = '';
 
@@ -228,7 +230,7 @@
 <h2>jQuery</h2>
 <p>You should use jQuery for these parts.</p>
 <p>We didn't include jQuery in this document, though&mdash;so your first task is to include it!</p>
-
+<script src="https://code.jquery.com/jquery-3.1.1.js" integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA=" crossorigin="anonymous"></script>
 
 
 <h3>Finding the Button</h3>
@@ -243,6 +245,7 @@
 <script>
   "use strict";
   // code here for above problem
+  $('.tricky-to-find').on('click', function(evt) {alert("Here is your alert box!");} );
 </script>
 
 <div class="hint">
@@ -271,6 +274,11 @@
 <script>
   "use strict";
   // put your code here
+  function kittenChange(evt) {
+    $('#kittenz-rule').attr('src', 'https://c2.staticflickr.com/4/3232/2614588765_efd83c9a73_z.jpg?zz=1'); 
+  }
+
+  $('#kittenz-rule').on('dblclick', kittenChange);
 </script>
 
 <div class="hint">
@@ -305,6 +313,14 @@
 <script>
   "use strict";
   // put your code here
+  var myPorc = 'http://www.zooborns.com/.a/6a010535647bf3970b01b8d131742b970c-800wi';
+
+  function showPorcupine() {
+    $('#cute-porcupine-image').attr('src', myPorc); //i found my own. it's fluffy.
+    $('#cute-porcupine-image').fadeIn(3000);
+  }
+
+  $('#make-a-porcupine').on('click', function(evt) {setTimeout(showPorcupine, 1000);} );
 </script>
 
 <div class="hint">
