@@ -365,6 +365,14 @@
 <script>
   "use strict";
   // put your code here
+  function showFood(evt) {
+    evt.preventDefault();
+    var fave = $('#favorite-food-input').val();
+    $('#agreeable-text').html('I like ' + fave + ', too.');
+  }
+
+  $('#agreeable-form').on('submit', showFood);
+
 </script>
 
 <div class="hint">
@@ -395,6 +403,28 @@
 <script>
   "use strict";
   // put your code here
+  function guessNumber(evt) {
+    var secretNumber = Math.floor(Math.random() * 100) + 1;
+    console.log(secretNumber);
+    var guess = prompt("Guess a number between 1 and 100");
+
+    while (parseInt(guess) !== secretNumber) {
+      console.log(guess);
+      if (guess > secretNumber) {
+        alert("Too high!");
+      } else if (guess < secretNumber) {
+        alert("Nope, too low.");
+      } else {
+        alert("Is that even a number?");
+      }
+      guess = prompt("Guess again! Pick a number between 1 and 100");
+    }
+    
+    alert("Congratulations! You guessed right.");
+  }
+
+  $('#play-guessing-game').on('click', guessNumber);
+  
 </script>
 
 <div class="hint">
@@ -436,6 +466,41 @@
 <script>
   "use strict";
   // put your code here
+  var secretNumber;
+
+  function generateSecretNum(evt) {
+    secretNumber = Math.floor(Math.random() * 100) + 1;
+    console.log(secretNumber);
+    $('#play-guessing-game-2').prop('disabled', true);
+    $('#try-this-number').prop('disabled', false);
+    $('#number-guessed').prop('disabled', false);
+  }
+
+  function guessNumber2(evt) {
+    evt.preventDefault();
+    var guess = $('#number-guessed').val();
+    if (parseInt(guess) !== secretNumber) {
+      console.log(guess);
+      if (guess > secretNumber) {
+        $('#number-guessing-msg').html('Too high! Try again.');
+      } else if (guess < secretNumber) {
+        $('#number-guessing-msg').html("Nope, too low.");
+      } else {
+        $('#number-guessing-msg').html("Is that even a number?");
+      }
+      // guess = prompt("Guess again! Pick a number between 1 and 100");
+    } else {
+      $('#number-guessing-msg').html("Congratulations! You guessed right.");
+      $('#play-guessing-game-2').prop('disabled', false);
+      $('#try-this-number').prop('disabled', true);
+      $('#number-guessed').prop('disabled', true);
+    }
+    
+  }
+
+  $('#play-guessing-game-2').on('click', generateSecretNum)
+  $('#guessing-game-2-form').on('submit', guessNumber2);
+
 </script>
 
 
@@ -467,6 +532,51 @@
   "use strict";
 
     var PRIME_COLORS = ['orange', 'midnightblue', 'darkgoldenrod', 'green', 'purple'];
+    var primeList = [];
+    var i = 2
+
+    function findPrimes() {
+      while (primeList.length < 5) {
+        for (var x = i - 1; x > 1; x=x-1) {
+          var divisible = false;
+          // console.log("in for loop" + i);
+          if (i%x === 0) {
+            divisible = true;
+            // console.log(i + " is divisible");
+            i++;
+            break;
+          }
+
+        }
+        if (!divisible) {
+          // console.log("in the if " + i)
+          primeList.push(i);
+          console.log(primeList);
+          i++;
+        }
+      }
+
+    }
+
+    function showBoxes(evt) {
+      findPrimes();
+      var boxes = '<div class="prime-box" id="box1" style="background-color: orange"></div>' +
+        '<div class="prime-box" id="box2" style="background-color: midnightblue"></div>' +
+        '<div class="prime-box" id="box3" style="background-color: midnightblue"></div>' +
+        '<div class="prime-box" id="box4" style="background-color: green"></div>' +
+        '<div class="prime-box" id="box5" style="background-color: purple"></div>';
+      $('#prime-box-area').html(boxes);
+
+      for (var y=0; y < 5; y++) {
+        var boxId = "box" + (y+1);
+        console.log(boxId);
+        $('#' + boxId).html(primeList[y]);
+        console.log(primeList[y]);
+        $('#' + boxId).attr('style', 'background-color: ' + PRIME_COLORS[y]);
+      }
+    }
+
+    $('#make-prime-boxes').on('click', showBoxes);
 
   // put the rest of your code here
 </script>
